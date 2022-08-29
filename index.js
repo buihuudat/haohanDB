@@ -6,7 +6,7 @@ const http = require('http');
 const path = require('path');
 const morgan = require('morgan');
 const debug = require('debug');
-
+const cors = require('cors')
 
 const info = debug('server:app:info');
 const error = debug('server:app:error');
@@ -36,6 +36,7 @@ if (env === 'production') {
 app.use(compression());
 app.use(express.static('public'));
 app.use(bodyParser.json());
+app.use(cors())
 // routes
 routes(app);
 
@@ -43,6 +44,6 @@ process.on('uncaughtException', (err) => {
   error(`crashed!!! - ${err.stack || err}`);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => console.log(`server is listening on port ${PORT}`));
